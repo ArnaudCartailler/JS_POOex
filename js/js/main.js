@@ -62,12 +62,6 @@ var king = {
   attack : 20,
   health : 100,
   method : ["magic", "bow"],
-  get heal(){
-    return this.health;
-  },
-  get att(){
-    return this.attack;
-  }
 };
 
 var queen = {
@@ -75,12 +69,6 @@ var queen = {
   attack : 25,
   health : 90,
   method : ["sword" , "fist"],
-  get heal(){
-    return this.health;
-  },
-  get att() {
-    return this.attack;
-  }
 };
 
 
@@ -89,7 +77,7 @@ function kingattack(){
   if(tec === 0){
     console.log("King is using " + king.method[0] + " and Queen has " + (queen.health - king.attack));
   }else{
-    console.log("Queen is safe and King is using " + king.method[1]);
+    console.log("Queen is safe because King used" + king.method[1]);
   }
 }
 
@@ -98,14 +86,25 @@ function queenattack(){
   if (tec === 0) {
     console.log("Queen is using " + queen.method[0] + " and King has " + (king.health - queen.attack));
   } else {
-    console.log("King is safe and Queen is using " + queen.method[1]);
+    console.log("King is safe because Queen used " + queen.method[1]);
   }
 }
+
+
+document.getElementById("go").onclick = function () { turn() };
+
+function turn(){
 var x = Math.round(Math.random());
 
 if(x < 1){
   kingattack();
+  document.getElementById("exo").innerHTML =
+    "King is using " + king.method[0] + " and Queen has " + (queen.health - king.attack) + ". <br />" + "King is safe because Queen used " + queen.method[1];
 
 }else{
   queenattack();
+  document.getElementById("exo").innerHTML =
+    "Queen is using " + queen.method[0] + " and King has " + (king.health - queen.attack) + ". <br />" + "Queen is safe because King used " + king.method[1];
+}
+
 }
