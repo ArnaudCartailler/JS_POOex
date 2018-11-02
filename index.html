@@ -19,7 +19,8 @@
 <body>
 
 
-  <div class="container-fluid">
+  <!--For the ex 2 JS-->
+  <!-- <div class="container-fluid">
 
     <div class="row">
       <p id="exo"></p>
@@ -34,9 +35,22 @@
 
   </div>
   
-  <button onclick="turn()" id ="go" height="300">TURN HERE</button>
+  <button onclick="turn()" id ="go" height="300">TURN HERE</button> -->
 
+<!--Ex 3-->
 
+<form>
+  <input type="text" placeholder="Titre"><br />
+  <input type="text" placeholder="Phrase accroche"><br />
+  <textarea type="text" placeholder="description"></textarea><br />
+  <button type="submit" onclick="loadDoc()" value="send">Send</button>
+</form>
+
+<ul>
+  <li id="titre"></li>
+  <li id="phrase"></li>
+  <li id="description"></li>
+</ul>
 
   <script src="js/vendor/modernizr-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
