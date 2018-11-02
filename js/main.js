@@ -135,9 +135,9 @@ function kingattack() {
   var tec = Math.random();
   if (tec < 0.33) {
     queen.health = queen.health - king.attack;
-  } else if (tec < 0.66) {
+  } else if (tec > 0.33 && tec < 0.66) {
     mage.health = mage.health - king.attack;
-  } else {
+  } else if (tec > 0.66) {
     king.health = king.health;
   }
 }
@@ -146,9 +146,9 @@ function queenattack() {
   var tec = Math.random();
   if (tec < 0.33) {
     king.health = king.health - queen.attack;
-  } else if (tec < 0.66){
+  } else if (tec > 0.33 && tec < 0.66){
     mage.health = mage.health - queen.attack;
-  } else{
+  } else if (tec > 0.66) {
     queen.health = queen.health;
   }
 }
@@ -158,20 +158,12 @@ function mageattack() {
   if (tec < 0.33) {
     mage.health = mage.health + mage.heal;
     mage.mana = mage.mana - mage.heal;
-    if(mage.mana < 0){
-      mage.health = mage.health
-    }
-  } else if(tec < 0.66){
+  } else if (tec > 0.33 && tec < 0.66){
     queen.health = queen.health - mage.attack;
-  } else{
+  } else if(tec > 0.66){
     king.health = king.health - mage.attack;
   }
 }
-
-document.getElementById("king").innerHTML = "king = " + king.health + "hp";
-document.getElementById("queen").innerHTML = "queen = " + queen.health + "hp";
-document.getElementById("mage").innerHTML = "mage = " + mage.health + "hp";
-document.getElementById("magemana").innerHTML = "mage mana = " + mage.mana;
 
 document.getElementById("go").onclick = function () { turn() };
 
@@ -182,52 +174,61 @@ function turn() {
   if (x < 0.33) {
     
     kingattack();
-  console.log("queen have " + queen.health + " hp");
-  console.log("king have " + king.health + " hp");
-  console.log("mage have " + mage.health + " hp and " + mage.mana + " mana.");
-  document.getElementById("king").innerHTML = "king = " + king.health + "hp";
 
-    document.getElementById("exo").innerHTML =
-      "King is using " + king.method[0] + " and Queen has " + queen.health + ". <br />" + "King is safe because Queen used " + queen.method[1];
+  document.getElementById("queen").innerHTML = "queen have " + queen.health + " hp";
+  document.getElementById("king").innerHTML = "king have " + king.health + " hp";
+  document.getElementById("mage").innerHTML = "mage have " + mage.health + " hp and " + mage.mana + " mana.";
+
+    // document.getElementById("exo").innerHTML =
+    //   "King is using " + king.method[0] + " and Queen has " + queen.health + ". <br />" + "King is safe because Queen used " + queen.method[1];
     return;
-  } else if(x < 0.66) {
+
+  } else if (x > 0.33 && x < 0.66) {
 
     queenattack();
-  console.log("queen have " + queen.health + " hp");
-  console.log("king have " + king.health + " hp");
-  console.log("mage have " + mage.health + " hp and " + mage.mana + " mana.");
-    document.getElementById("queen").innerHTML = "queen = " + queen.health + "hp";
 
-  document.getElementById("exo").innerHTML =
-    "Queen is using " + queen.method[0] + " and King has " + king.health + ". <br />" + "Queen is safe because King used " + king.method[1];
+    document.getElementById("queen").innerHTML = "queen have " + queen.health + " hp";
+    document.getElementById("king").innerHTML = "king have " + king.health + " hp";
+    document.getElementById("mage").innerHTML = "mage have " + mage.health + " hp and " + mage.mana + " mana.";
+
+
+  // document.getElementById("exo").innerHTML =
+  //   "Queen is using " + queen.method[0] + " and King has " + king.health + ". <br />" + "Queen is safe because King used " + king.method[1];
 return;
-  }else{
+
+  }else if(x > 0.66){
 
       mageattack();
-  console.log("queen have " + queen.health + " hp");
-  console.log("king have " + king.health + " hp");
-  console.log("mage have " + mage.health + " hp and " + mage.mana + " mana.");
+
+    document.getElementById("queen").innerHTML = "queen have " + queen.health + " hp";
+    document.getElementById("king").innerHTML = "king have " + king.health + " hp";
     document.getElementById("mage").innerHTML = "mage = " + mage.health + "hp";
     document.getElementById("magemana").innerHTML = "mage mana = " + mage.mana;
-  document.getElementById("exo").innerHTML = "Mage is using attacking";
+    // document.getElementById("exo").innerHTML = "Mage is using attacking";
+    }
+
+  if(queen.health < 0) {
+    console.log("Queen loose");
+    document.getElementById("exo").innerHTML = "King and Mage has won !";
+    document.getElementById("go").style.display = "none";
+
+  } 
+  
+  if(king.health < 0) {
+    console.log("King loose");
+    document.getElementById("exo").innerHTML = "Queen and Mage has won !";
+    document.getElementById("go").style.display = "none";
+
+  } 
+  
+  if(mage.health < 0) {
+    console.log("Mage loose");
+    document.getElementById("exo").innerHTML = "King and Queen has won !";
+    document.getElementById("go").style.display = "none";
   }
+
 }
   
-  if(queen.health < 0){
-    console.log("Queen loose");
-    document.getElementById("exo").innerHTML = "King has won !";
-    document.getElementById("go").style.display = "none";
-
-  }else if(king.health < 0){
-    console.log("King loose");
-    document.getElementById("exo").innerHTML = "Queen has won !";
-    document.getElementById("go").style.display = "none";
-
-  }else if(mage.health < 0){
-    console.log("King loose");
-    document.getElementById("exo").innerHTML = "Mage has won !";
-    document.getElementById("go").style.display = "none";
-}
-
+ 
 
 
